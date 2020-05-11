@@ -4,6 +4,9 @@ def syntax_verifier(expr):
     open = "<"
     close = ">"
     stack = Stack()
+    tam = len(expr)
+    if expr[0]!="<" or expr[tam-1]!=">":
+        return False
 
     for c in expr:
         if c in open:
