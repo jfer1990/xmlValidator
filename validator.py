@@ -8,12 +8,12 @@ fileObject = open(path+"/"+nameFile,"r")
 
 
 #Creación variables
-xmlContent = fileObject.read() #Lee y almacena el documento de un archivo en la variable xmlContent sin saltos de línea
-xmlContent = tokens(xmlContent)
+contenidoXML = fileObject.read() #Lee y almacena el documento de un archivo en la variable xmlContent sin saltos de línea
 
 
 #funciones:
 def validarXML(string):
+    xmlContent = tokens(string)
     stack = Stack()
     bandera = False
 
@@ -40,4 +40,4 @@ def validarXML(string):
     return bandera
 
 #Codigo:
-print(validarXML(xmlContent))
+print(validarXML(contenidoXML))
