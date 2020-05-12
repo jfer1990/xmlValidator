@@ -4,10 +4,13 @@ def isXml(input):
 def isOpenTag(input): #<manito huachicol=vargas>, <manito>,
     tam = len(input)
     if isBalance(input) and tam>2:
-        aux = input[1:tam-1].split(" ")
+        input = input[1:tam-1]
+        aux = input.split(" ")
         tag = aux[0]
         attributes = aux[1:]
-        if not tag[0].isalpha:
+        if input[len(input)-1] == "/":
+            return False
+        if not tag[0].isalpha():
             return False
         if len(attributes)>0:
             for var in attributes:
@@ -20,17 +23,22 @@ def isOpenTag(input): #<manito huachicol=vargas>, <manito>,
         return False
 
 def isCloseTag(input):
-    size = len(input)
-    if size>=4:
-        first = input[0:2]
-        last = input[size - 1]
-        middle = input[2:size-1]
-        if first != "</" or last != ">":
-            return False
-        for char in middle:
-            if char == " ":
+    tam = len(input)
+    if tam > 3:
+        first = input[:2]
+        last = input[tam-1]
+        if first == "</" and last == ">":
+            tagName = input[2:tam-1].split(" ")
+            if len(tagName)>1:
                 return False
-        return True
+            elif len(tagName)==1:
+                w = tagName[0]
+                if w[0].isalpha():
+                    return True
+                else:
+                    return False
+        else:
+            return False
     else:
         return False
 def isOpenClose(input): #<manito huachicol=vargas>, <manito>,
@@ -59,9 +67,9 @@ def isInternalAttribute(exp):
     if len(exp)==2:
         w1 = exp[0]
         w2 = exp[1]
-        for c in w1:
-            if not c.isalpha():
-                return False
+        cont = 0
+        if not w1[0].isalpha():
+            return False
         if len(w2)>=2:
             if w2[0] != "'" or w2[len(w2)-1] != "'":
                 return False
@@ -71,7 +79,10 @@ def isInternalAttribute(exp):
     else:
         return False
 
-print(isOpenTag("<tagElement>"))
-print(isOpenTag("<tagElement attribute='value'>"))
-print(isOpenClose("<tagElement attribute='value'/>"))
-
+exp = "</atributo>"
+if isOpenTag(exp):
+    print("openTag")
+if isCloseTag(exp):
+    print("closeTag")
+if isOpenClose(exp):
+    print("openClose")

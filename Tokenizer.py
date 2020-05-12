@@ -1,4 +1,5 @@
 from symbol_balance_verifier import syntax_verifier as isBalance
+from Predicates import isOpenTag, isCloseTag
 def tokens(word):
     lista = list()
     while len(word)>0:
@@ -11,7 +12,7 @@ def tokens(word):
                 token = token + word[0]
                 if word[0]==None or word[0]==">":
                     break
-            #Termina el ciclo while con el caracter ">" insertado en var
+            #Termina el ciclo while con el caracter ">" insertado en token
             lista.append(token) #agregamos el token
             if len(word)>0:
                 word = word[1:] #eliminamos de la cadena el primer elemento, el cual era el símbolo ">"
@@ -26,11 +27,16 @@ def tokens(word):
     return lista
 def tagName(exp):
     if isBalance(exp) and len(exp)>2:
-        exp = exp[1:len(exp) - 1]
-        exp = exp.split(" ")
-        return exp[0]
+        if isOpenTag(exp):
+            print("entre1")
+            exp = exp[1:len(exp) - 1]
+            exp = exp.split(" ")
+            return exp[0]
+        elif isCloseTag(exp):
+            print("entre2")
+            exp = exp[2:len(exp) - 1]
+            exp = exp.split(" ")
+            return exp[0]
     else:
         return "@@@@error"
 
-#print(tokens("< querida wowow ffml> mamasa <>"))
-#print(tagName("<hi what ever>"))
