@@ -28,13 +28,15 @@ def tokens(word):
 def tagName(exp):
     if isBalance(exp) and len(exp)>2:
         if isOpenTag(exp):
+            print("entre1")
             exp = exp[1:len(exp) - 1]
             exp = exp.split(" ")
             return exp[0]
         elif isCloseTag(exp):
+            print("entre2")
             exp = exp[2:len(exp) - 1]
             exp = exp.split(" ")
             return exp[0]
     else:
-        return "@error"
+        return "@@@@error"
 

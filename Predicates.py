@@ -1,6 +1,6 @@
 from symbol_balance_verifier import syntax_verifier as isBalance
 def isXml(input):
-    return True if input == "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" else False
+    return True if input == "<xml>" else False
 def isOpenTag(input): #<manito huachicol=vargas>, <manito>,
     tam = len(input)
     if isBalance(input) and tam>2:
@@ -71,7 +71,7 @@ def isInternalAttribute(exp):
         if not w1[0].isalpha():
             return False
         if len(w2)>=2:
-            if w2[0] != "\"" or w2[len(w2)-1] != "\"":
+            if w2[0] != "'" or w2[len(w2)-1] != "'":
                 return False
             return True
         else:
@@ -79,16 +79,10 @@ def isInternalAttribute(exp):
     else:
         return False
 
-exp = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-exp2= "<xml version=\"1.0\" encoding=\"UTF-8\">"
-exp3= "<xml version=\"1.0\" encoding=\"UTF-8\"/>"
-exp4 = "</xml>"
-exp5 = "</xml version=\"1.0\" encoding=\"UTF-8\">"
-if isOpenTag(exp5):
+exp = "</atributo>"
+if isOpenTag(exp):
     print("openTag")
-if isCloseTag(exp5):
+if isCloseTag(exp):
     print("closeTag")
-if isOpenClose(exp5):
+if isOpenClose(exp):
     print("openClose")
-if isXml(exp5):
-    print("isXml")
